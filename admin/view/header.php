@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css.css">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/509cc166d7.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -24,7 +25,7 @@
 <!--    start header-->
     <nav class="navbar bg-body-tertiary  col-12">
 
-            <a class="navbar-brand" href="index.php"><img src="img/FPTShop_logo.jpg" alt="" width=100px" height="50px"></a>
+            <a class="navbar-brand" href="index.php?act=listsp"><img src="../img/FPTShop_logo.jpg" alt="" width=100px" height="50px"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -56,7 +57,7 @@
                             ?>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.php">Home</a>
+                            <a class="nav-link active" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,7 +67,7 @@
                                 <?php
                                 foreach ($listdanhmuc as $danhmuc){
                                     extract($danhmuc);
-                                    $linkdm="index.php?act=sanpham&iddm=".$id;
+                                    $linkdm="index.php?act=listsp&iddm=".$id;
                                     echo '<li><a class="dropdown-item" href="'.$linkdm.'">'.$name.'</a></li>';
                                 }
                                 ?>
@@ -80,7 +81,7 @@
                                 <?php
                                 foreach ($listdanhmuc as $danhmuc){
                                     extract($danhmuc);
-                                    $linkdm="index.php?act=sanpham&iddm=".$id;
+                                    $linkdm="index.php?act=listsp&iddm=".$id;
                                     echo '<li><a class="dropdown-item" href="'.$linkdm.'">'.$name.'</a></li>';
                                 }
                                 ?>
@@ -88,6 +89,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="index.php?act=cart">Giỏ hàng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.php?act=thongke">Thống kê</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.php?act=user">Quản lý người dùng</a>
                         </li>
                     </ul>
                     <form class="d-flex mt-3" role="search">

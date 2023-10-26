@@ -4,29 +4,37 @@ include "../model/danhmuc.php";
 include "../model/sanpham.php";
 include "../model/thongke.php";
 include "../model/taikhoan.php";
+include "../model/cart.php";
 $listdanhmuc = loadall_danhmuc();
 $spnew = loadall_sanpham_home();
 $dsdm = loadall_danhmuc();
-$dstop10 = loadall_sanpham_top10();
+
 include "view/header.php";
 if(isset($_GET['act'])&&($_GET['act']!="")){
     $act=$_GET['act'];
     switch($act){
         case "listsp":
-            if(isset($_POST['clickOK'])&&($_POST['clickOK'])){
-                $keyw=$_POST['keyw'];
-                $iddm=$_POST['iddm'];
+            if(isset($_POST['keyword']) &&  $_POST['keyword'] != 0 ){
+                $keyw = $_POST['keyword'];
             }else{
-                $keyw="";
+                $keyw = "";
+            }
+            if(isset($_GET['iddm']) && ($_GET['iddm']>0)){
+                $iddm=$_GET['iddm'];
+            }else{
                 $iddm=0;
             }
+
             $listdanhmuc= loadall_danhmuc();
             $listsanpham = loadall_sanpham($keyw,$iddm);
             include "sanpham/list.php";
             break;
         case "bieudosp":
-            $listsanpham = loadall_sanpham();
+            $listsanpham = loadall_comment_sanpham();
             include "sanpham/bieudo.php";
+            break;
+        case "add":
+            include "sanpham/add.php";
             break;
         case "addsp":
             if(isset($_POST['themmoi'])&& ($_POST['themmoi'])){
@@ -48,9 +56,14 @@ if(isset($_GET['act'])&&($_GET['act']!="")){
                 insert_sanpham($tensp, $giasp, $hinh,$mota, $iddm);
                 $thanhcong = "Thêm thành công";
             }
-
+            if(isset($thanhcong)){
+                echo "<script> 
+                        alert('$thanhcong')
+                        window.location.href ='index.php?act=add';
+                        </script>";
+            }
             $listdanhmuc= loadall_danhmuc();
-            include "sanpham/add.php";
+
             break;
         case "suasp":
             if(isset($_GET['idsp'])&&($_GET['idsp']>0)){
@@ -70,16 +83,23 @@ if(isset($_GET['act'])&&($_GET['act']!="")){
                 $target_dir = "../upload/";
                 $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                    echo "The file ". htmlspecialchars( basename( $_FILES["hinh"]["name"])). " has been uploaded.";
+//                    echo "The file ". htmlspecialchars( basename( $_FILES["hinh"]["name"])). " has been uploaded.";
                 } else {
-                    echo "Sorry, there was an error uploading your file.";
+//                    echo "Sorry, there was an error uploading your file.";
                 }
                 update_sanpham($id,$iddm,$tensp,$giasp,$mota,$hinh);
                 $thongbao="cập nhật thành công!";
             }
+
+            $listdanhmuc= loadall_danhmuc();
             $listsanpham=loadall_sanpham("",0);
             $listdanhmuc=loadall_danhmuc();
-            include "sanpham/list.php";
+            if(isset($thongbao)){
+                echo "<script> 
+                        alert('$thongbao')
+                        window.location.href ='index.php?act=listsp';
+                        </script>";
+            }
             break;
         case "bieudo":
             $dsthongke = load_thongke_sanpham_danhmuc();
@@ -99,19 +119,24 @@ if(isset($_GET['act'])&&($_GET['act']!="")){
             }
             $listsanpham=loadall_sanpham("",0);
             $listdanhmuc=loadall_danhmuc();
-            include "sanpham/list.php";
+            echo "<script>window.location.href ='index.php?act=listsp';</script>";
             break;
 
         case "thongke":
             $dsthongke = load_thongke_sanpham_danhmuc();
             include "thongke/list.php";
             break;
+        case "cart":
+            $listcart = all_cart();
+            include 'cart/list.php';
+            break;
+        case "udcart":
+
+            break;
 
 
 
     }
-}else{
-    include "view/home.php";
 }
 include "view/footer.php";
 ?>

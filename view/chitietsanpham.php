@@ -30,7 +30,7 @@
             <!-- Số lượng đặt hàng và thêm vào giỏ hàng -->
             <form action="index.php?act=addtocart" method="post">
                 <div class="form-group">
-                    <input type="text" name="id_pro" value="<?=$id?>" >
+                    <input type="hidden" name="id_pro" value="<?=$id?>" >
                     <label for="soluong">Số lượng:</label>
                     <input type="number" class="form-control" name="soluong" value="1">
                     <input type="submit" class="btn btn-primary mt-4" name="addtocart" value="Thêm vào giỏ hàng">
@@ -53,6 +53,18 @@
             </tr>
         <?php endforeach; ?>
     </table>
+    <?php
+    if (isset($_SESSION['user']) && $_SESSION['user'] != 0 ){
+        echo '<form action="index.php?act=sanphamct&idsp=<?=$id?>" method="POST">
+                    <input type="hidden" name="idpro" value="<?=$id?>">
+                    <input type="text" name="noidung">
+                    <input type="submit" name="guibinhluan" value="Gửi bình luận">
+            </form>';
+    }else{
+        echo '<a href="index.php?act=login">Đăng nhập để bình luận đi nào</a>';
+    }
+    ?>
+
 </div>
 <!--end comment product-->
 

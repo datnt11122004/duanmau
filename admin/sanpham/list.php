@@ -7,7 +7,7 @@
         <th scope="col">Giá</th>
         <th scope="col">Ảnh</th>
         <th scope="col">Lượt xem</th>
-        <th scope="col">Số bình luận</th>
+        <th scope="col">Danh mục</th>
         <th scope="col">Thao tác</th>
     </tr>
     </thead>
@@ -32,9 +32,17 @@
             <td><?=$price?></td>
             <td><?=$hinhpath?></td>
             <td><?=$luotxem?></td>
-            <td><?=$soBinhLuan?></td>
-            <td>Xóa</td>
+            <td><?=$tendanhmuc?></td>
+            <td>
+                <a href="<?=$suasp?>" class="btn btn-danger">Sửa</a>
+                <a href="<?=$hard_delete?>" class="btn btn-danger">Xóa cứng</a>
+                <a href="<?=$soft_delete?>" class="btn btn-danger">Xoá mềm</a>
+            </td>
         </tr>
     <?php } ?>
     </tbody>
 </table>
+<div class="form-group mt-4">
+    <a href="index.php?act=listsp" class="btn btn-secondary d-inline ml-3">Danh sách</a>
+    <a href="index.php?act=add" class="btn btn-secondary d-inline ml-3">Thêm mới</a>
+</div>

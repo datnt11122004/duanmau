@@ -1,18 +1,14 @@
 <?php
 function loadall_sanpham_home(){
-    $sql="select * from sanpham where 1 order by id desc limit 0,9";
+    $sql="select * from sanpham where trangthai = 0 order by id desc ";
     $listsanpham=pdo_query($sql);
     return  $listsanpham;
 }
-function loadall_sanpham_top10(){
-    $sql="select * from sanpham where 1 order by luotxem desc limit 0,10";
-    $listsanpham=pdo_query($sql);
-    return $listsanpham;
-}
+
 function loadall_sanpham($keyw="",$iddm=0){
-    $sql="SELECT *,sanpham.id as id_sp, COUNT(binhluan.id) as soBinhLuan 
+    $sql="SELECT *,sanpham.id as id_sp, danhmuc.name as tendanhmuc
         from sanpham 
-        join binhluan ON binhluan.idpro = sanpham.id
+        join danhmuc on danhmuc.id = sanpham.iddm
         where trangthai = 0
         ";
     // where 1 tức là nó đúng
@@ -22,7 +18,25 @@ function loadall_sanpham($keyw="",$iddm=0){
     if($iddm>0){
         $sql.=" and iddm ='".$iddm."'";
     }
-    $sql.=" group by sanpham.id order by sanpham.id desc";
+    $sql.=" group by sanpham.id 
+            order by sanpham.id desc";
+    $listsanpham=pdo_query($sql);
+    return  $listsanpham;
+}
+function loadall_comment_sanpham($keyw="",$iddm=0){
+    $sql="SELECT *, COUNT(binhluan.id) as soBinhLuan 
+        from sanpham 
+        join binhluan ON binhluan.idpro = sanpham.id
+        where trangthai = 0
+        group by sanpham.id";
+    // where 1 tức là nó đúng
+    if($keyw!=""){
+        $sql.=" and name like '%".$keyw."%'";
+    }
+    if($iddm>0){
+        $sql.=" and iddm ='".$iddm."'";
+    }
+    $sql.=" order by sanpham.id desc";
     $listsanpham=pdo_query($sql);
     return  $listsanpham;
 }
@@ -55,7 +69,11 @@ function update_sanpham($id,$iddm,$tensp,$giasp,$mota,$hinh){
 
 // Câu truy vấn xóa cứng
 function hard_delete($id){
-    $sql = "DELETE FROM sanpham WHERE id=" .$id;
+    $sql = "DELETE sanpham, cart, binhluan
+            FROM sanpham
+            LEFT JOIN cart ON sanpham.id = cart.id_pro
+            LEFT JOIN binhluan ON sanpham.id = binhluan.idpro
+            WHERE sanpham.id = ".$id;
     pdo_execute($sql);
 }
 

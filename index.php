@@ -8,7 +8,6 @@ include "model/cart.php";
 $listdanhmuc = loadall_danhmuc();
 $spnew = loadall_sanpham_home();
 $dsdm = loadall_danhmuc();
-$dstop10 = loadall_sanpham_top10();
 include "view/header.php";
 include "global.php";
 
@@ -114,8 +113,13 @@ if(isset($_GET['act'])&&($_GET['act']!="")){
             }
             break;
         case "cart":
-            $cart = cart();
-            include "view/cart.php";
+            if(isset($_SESSION['id_user']) && $_SESSION['id_user'] != 0){
+                $cart = cart();
+                include "view/cart.php";
+            }else{
+                echo '<script>alert("Đăng nhập đi")
+                    window.location.href="index.php?act=login";</script>';
+            }
             break;
     }
 }else{

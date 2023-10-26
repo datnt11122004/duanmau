@@ -25,7 +25,7 @@
                 <td><?php echo $sanpham['soluong']; ?></td>
                 <td>$<?php echo $sanpham['price']; ?></td>
                 <td>$<?php echo $sanpham['gia_tien_sp']; ?></td>
-                <td><?php echo $sanpham['trangthai']; ?></td>
+                <td><?php echo $sanpham['name_status']; ?></td>
                 <td>
                     <!-- Thêm các nút thao tác tại đây (ví dụ: Xóa, Sửa, ...) -->
                     <button class="btn btn-danger">Xóa</button>
