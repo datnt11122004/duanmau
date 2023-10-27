@@ -5,6 +5,7 @@ include "../model/sanpham.php";
 include "../model/thongke.php";
 include "../model/taikhoan.php";
 include "../model/cart.php";
+include "../model/statuscart.php";
 $listdanhmuc = loadall_danhmuc();
 $spnew = loadall_sanpham_home();
 $dsdm = loadall_danhmuc();
@@ -128,10 +129,34 @@ if(isset($_GET['act'])&&($_GET['act']!="")){
             break;
         case "cart":
             $listcart = all_cart();
+            $listst = load_all_status();
             include 'cart/list.php';
             break;
-        case "udcart":
+        case"cartud":
 
+            if(isset($_GET['idcart'])){
+                $id = $_GET['idcart'];
+                $cart = query_ud_cart_admin($id);
+                $listst = load_all_status();
+                include "cart/udcart.php";
+            }
+            break;
+        case "udcart":
+            if(isset($_POST['save'])){
+                $id_cart = $_POST['madonhang'];
+                $status = $_POST ['status'] ;
+                ud_st_cart($status,$id_cart);
+                echo '<script>
+                            alert("Cập nhật tình trạng đơn hàng thành công");
+                            window.location.href = "index.php?act=cart"
+                            </script>
+                    ';
+            }
+
+            break;
+        case "user":
+            $listuser = list_user();
+            include "user/list.php";
             break;
 
 

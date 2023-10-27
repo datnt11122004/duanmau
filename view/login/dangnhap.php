@@ -8,5 +8,6 @@
         <label for="password">Mật khẩu:</label>
         <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu" name="pass">
     </div>
+    <a href="index.php?act=quenmk">Quên mật khẩu</a>
     <button type="submit" class="btn btn-primary" name="login">Đăng nhập</button>
 </form>

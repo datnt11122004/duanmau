@@ -26,6 +26,22 @@
             session_destroy();
         }
     }
+    function list_user(){
+        $sql = "select * from taikhoan where 1";
+        return pdo_query($sql);
+    }
+
+    function user($id_user){
+        $sql = "SELECT * FROM taikhoan where id=" . $id_user;
+        return pdo_query_one($sql);
+    }
+    function update_user($name_user,$email_user,$password,$address_user,$tel_user,$id_user){
+        $sql = "UPDATE `taikhoan` SET 
+              `user`='$name_user',`email`='$email_user',`pass`='$password',
+              `address`='$address_user',`tel`='$tel_user' 
+                WHERE id=" .$id_user;
+        return pdo_execute($sql);
+    }
 
     function sendMail($email) {
         $sql="SELECT * FROM taikhoan WHERE email='$email'";

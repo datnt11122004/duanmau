@@ -16,6 +16,18 @@ function cart(){
 
     return pdo_query($sql);
 }
+function query_ud_cart_admin($id){
+    $sql = "SELECT *, s.name_status AS trang_thai,
+       sp.name AS ten_san_pham, sp.price * c.soluong AS gia_tien_sp, 
+       SUM(sp.price * c.soluong) OVER (PARTITION BY c.id_cart) AS tong_gia_tien_don_hang 
+        FROM cart c 
+            INNER JOIN taikhoan u ON c.id_user = u.id 
+            INNER JOIN sanpham sp ON c.id_pro = sp.id 
+            INNER JOIN status_cart s ON c.id_tt = s.id_tt 
+        WHERE c.id_cart = ".$id."";
+
+    return pdo_query_one($sql);
+}
 function all_cart(){
     $sql = "SELECT *, s.name_status AS trang_thai,
        sp.name AS ten_san_pham, sp.price * c.soluong AS gia_tien_sp, 
@@ -26,4 +38,8 @@ function all_cart(){
             INNER JOIN status_cart s ON c.id_tt = s.id_tt ";
 
     return pdo_query($sql);
+}
+function ud_st_cart($id_tt,$id_cart){
+    $sql = "UPDATE CART SET `id_tt`= $id_tt where id_cart = ".$id_cart.""  ;
+    return pdo_execute($sql);
 }

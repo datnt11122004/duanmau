@@ -95,6 +95,29 @@ if(isset($_GET['act'])&&($_GET['act']!="")){
             }
             include "view/login/quenmk.php";
             break;
+        case "user":
+            if(isset($_SESSION['user'])){
+                $taikhoan = user($_SESSION['id_user']);
+                include "view/user.php";
+            }else{
+                echo '<script>alert("Đăng nhập đi ní")
+                    window.location.href="index.php?act=login";</script>';
+            }
+            break;
+        case "ud_user":
+            if(isset($_POST['save'])){
+                $id_user = $_SESSION['id_user'];
+                $name_user = $_POST['user'];
+                $password = $_POST['pass'];
+                $email_user = $_POST['email'];
+                $tel_user = $_POST['tel'];
+                $address_user = $_POST['address'];
+                update_user($name_user,$email_user,$password,$address_user,$tel_user,$id_user);
+                $_SESSION['user'] = $name_user;
+                echo '<script>alert("Đổi thông tin thành công rồi ní")
+                    window.location.href="index.php?act=user";</script>';
+            }
+            break;
         case "addtocart":
             $add = false;
             if(isset($_POST['addtocart']) ) {
