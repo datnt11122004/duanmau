@@ -45,4 +45,5 @@
 <div class="form-group mt-4">
     <a href="index.php?act=listsp" class="btn btn-secondary d-inline ml-3">Danh sách</a>
     <a href="index.php?act=add" class="btn btn-secondary d-inline ml-3">Thêm mới</a>
+    <a href="index.php?act=bieudosp" class="btn btn-info">Biểu đồ</a>
 </div>

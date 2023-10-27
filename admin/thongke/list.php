@@ -5,7 +5,7 @@
     <div class="row2 form_content ">
         <form action="#" method="POST">
             <div class="row2 mb10 formds_loai">
-                <table>
+                <table class="table">
                     <tr>
 
                         <th>MÃ LOẠI</th>
